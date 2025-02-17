@@ -31,7 +31,6 @@ public class App {
         System.out.println("Opción 4: Buscar por genero");
         System.out.println("\n Ingrese una opción");
 
-       
         do {
             System.out.println("\n -- MENU --");
             System.out.println("1. Crear / Registrar un libro");

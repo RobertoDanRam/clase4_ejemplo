@@ -7,8 +7,6 @@ public class Libro {
     private String genero;
     private String codigoBarras;
 
-    
-    
     public Libro() {
 
     }
@@ -54,7 +52,7 @@ public class Libro {
                "Código de Barras: " + codigoBarras + "\n" +
                "Género: " + genero + "\n";
     }
-    
+
     public Libro buscarPorCodigo(List<Libro> libros, String codigoBarras){
         for(int i=0;i<libros.size();i++){
             if(libros.get(i).getCodigoBarras()==codigoBarras){
