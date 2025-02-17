@@ -21,6 +21,9 @@ public class App {
         libros.add(l2);
         libros.add(l3);
 
+        Scanner scanner= new Scanner(System.in);
+        int opcion= scanner.nextInt();
+
         System.out.println("\n -- MENU --");
         System.out.println("Opción 1 : Guardar Libro");
         System.out.println("Opción 2: Buscar por Código");
@@ -28,27 +31,105 @@ public class App {
         System.out.println("Opción 4: Buscar por genero");
         System.out.println("\n Ingrese una opción");
 
-        Scanner scanner= new Scanner(System.in);
-        int opcion= scanner.nextInt();
+       
+        do {
+            System.out.println("\n -- MENU --");
+            System.out.println("1. Crear / Registrar un libro");
+            System.out.println("2. Buscar por Código");
+            System.out.println("3. Mostrar todos los libros registrados");
+            System.out.println("4. Buscar por Genero");
+            System.out.println("5. Salir (terminar / detener el programa)");
+            System.out.print("\nIngrese una opción: ");
 
-        //System.out.println("El valor ingresado fue: "+ opcion);
-        
-        if(opcion==1){
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer del scanner
 
-        }else if(opcion==2){
-            Libro resultado=l1.buscarPorCodigo(libros, "000002");
-            if(resultado!=null){
-                System.out.println(resultado.getTitulo());
-            }else{
-                System.err.println("No se encontró el código de barras :( ");
+            switch (opcion) {
+                case 1:
+                    registrarLibro(libros, scanner);
+                    break;
+                case 2:
+                    buscarPorCodigo(libros, scanner);
+                    break;
+                case 3:
+                    mostrarTodos(libros);
+                    break;
+                case 4:
+                    buscarPorGenero(libros, scanner);
+                    break;
+                case 5:
+                    System.out.println("¡Hasta luego!");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
             }
+        } while (opcion != 5);
 
-        }else if(opcion==3){
+        scanner.close();
+    }
 
-        }else{
+    // Métodos para cada opción del menu
+    static void registrarLibro(List<Libro> libros, Scanner scanner) {
+        System.out.print("Título: ");
+        String titulo = scanner.nextLine();
+        System.out.print("Autor: ");
+        String autor = scanner.nextLine();
+        System.out.print("Código de Barras: ");
+        String codigoBarras = scanner.nextLine();
+        System.out.print("Género: ");
+        String genero = scanner.nextLine();
 
+        Libro nuevoLibro = new Libro(autor, titulo, genero, codigoBarras);
+        libros.add(nuevoLibro);
+        System.out.println("Libro registrado exitosamente.");
+    }
+
+    static void buscarPorCodigo(List<Libro> libros, Scanner scanner) {
+        System.out.print("Ingrese el código a buscar: ");
+        String codigo = scanner.nextLine();
+
+        Libro resultado = null;
+        for (Libro libro : libros) {
+            if (libro.getCodigoBarras().equals(codigo)) {
+                resultado = libro;
+                break;
+            }
         }
-        
 
+        if (resultado != null) {
+            System.out.println(resultado); // Imprime la información del libro
+        } else {
+            System.out.println("No se encontró el código solicitado: " + codigo);
+        }
+    }
+
+    static void mostrarTodos(List<Libro> libros) {
+        if (libros.isEmpty()) {
+            System.out.println("No hay libros registrados.");
+        } else {
+            for (Libro libro : libros) {
+                System.out.println(libro); // Imprime la información de cada libro
+            }
+        }
+    }
+
+    static void buscarPorGenero(List<Libro> libros, Scanner scanner) {
+        System.out.print("Ingrese el género a buscar: ");
+        String genero = scanner.nextLine();
+
+        List<Libro> librosEncontrados = new ArrayList<>();
+        for (Libro libro : libros) {
+            if (libro.getGenero().equalsIgnoreCase(genero)) { // Ignora mayúsculas y minúsculas
+                librosEncontrados.add(libro);
+            }
+        }
+
+        if (librosEncontrados.isEmpty()) {
+            System.out.println("No se encontró el género solicitado: " + genero);
+        } else {
+            for (Libro libro : librosEncontrados) {
+                System.out.println(libro); // Imprime la información de cada libro
+            }
+        }
     }
 }

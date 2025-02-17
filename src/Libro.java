@@ -46,6 +46,15 @@ public class Libro {
         this.codigoBarras = codigoBarras;
     }
 
+    // Método toString()
+    @Override
+    public String toString() {
+        return "Título: " + titulo + "\n" +
+               "Autor: " + autor + "\n" +
+               "Código de Barras: " + codigoBarras + "\n" +
+               "Género: " + genero + "\n";
+    }
+    
     public Libro buscarPorCodigo(List<Libro> libros, String codigoBarras){
         for(int i=0;i<libros.size();i++){
             if(libros.get(i).getCodigoBarras()==codigoBarras){
@@ -73,6 +82,6 @@ public class Libro {
                
             }
         }
-        return librosEncontrados;;
+        return librosEncontrados;
     }
 }
